@@ -1,0 +1,54 @@
+import { TOGGLE_FAV } from "../actions/products";
+
+const initialState = {
+  products: [
+    {
+      id: "p1",
+      title: "Red Scarf",
+      description: "A pretty red scarf.",
+      isFavorite: false,
+    },
+    {
+      id: "p2",
+      title: "Blue T-Shirt",
+      description: "A pretty blue t-shirt.",
+      isFavorite: false,
+    },
+    {
+      id: "p3",
+      title: "Green Trousers",
+      description: "A pair of lightly green trousers.",
+      isFavorite: false,
+    },
+    {
+      id: "p4",
+      title: "Orange Hat",
+      description: "Street style! An orange hat.",
+      isFavorite: false,
+    },
+  ],
+};
+
+const productReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case TOGGLE_FAV:
+      const proIndex = state.products.findIndex(
+        (pro) => pro.id === action.productId
+      );
+      const navFavorite = !state.products[proIndex].isFavorite;
+      const navProduct = [...state.products];
+      navProduct[proIndex] = {
+        ...state.products[proIndex],
+        isFavorite: navFavorite,
+      };
+      return {
+        ...state,
+        products: navProduct,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export default productReducer;
